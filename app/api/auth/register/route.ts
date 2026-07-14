@@ -3,7 +3,7 @@ import User from "@/models/User";
 import { request } from "http";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
     try {
         const {email,password} = await request.json()
         if(!email){
@@ -12,7 +12,7 @@ export async function POST() {
                 {status:400}
             )
         }
-        await connectToDatabase;
+        await connectToDatabase();
         const existingUser = await User.findOne({email})
         if(existingUser){
              return NextResponse.json(
